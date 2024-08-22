@@ -1,0 +1,109 @@
+<%- include('./header.ejs') %>
+<%- include('./sidebar.ejs') %>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) --> 
+    <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Display Complaint List</h3>
+          <button data-toggle="modal" data-target="#modal-default" class="btn btn-success" style="float: right;">Add Complaint</button>
+        </div>
+        
+        <!-- /.card-header -->
+        <div class="card-body">
+         
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Model</th>
+              <th>Brand</th>
+              <th>Device</th>
+              <th>Problem</th>
+              <th>Estimated</th>
+              <th>Action</th> 
+            </tr>
+            </thead>
+            <tbody>
+              
+              <% d.forEach((item)=>{ %>
+                <tr>
+                  <td><%= item._id %></td>
+                  <td><%= item.name %></td>
+                  <td><%= item.email %></td>
+                  <td><%= item.model %></td>
+                  <td><%= item.brand %></td>
+                  <td><%= item.device %></td>
+                  <td><%= item.problem %></td>
+                  <td><%= item.estimated %></td>
+                  <td>
+                    <a href="/user/viewcomplaint/<%= item._id %>" class="btn btn-success">View</a>
+                    <a href="" class="btn btn-info">Edit</a>
+                    <a href="" class="btn btn-danger">Delete</a>
+                  </td>
+                </tr>
+             <% }) %>
+         
+            </tbody>
+            <tfoot>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!--Modal tag Start -->
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Complaint</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="/user/insertcomplaint" method="post" >
+                <div class="form-group">
+                  <label>Name</label>
+                  <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>email</label>
+                  <input type="text" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Model</label>
+                  <input type="text" name="model" class="form-control" required>
+                </div> 
+                <div class="form-group">
+                  <label>Brand</label>
+                  <input type="text" name="brand" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Device</label>
+                  <input type="text" name="device" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Problem</label>
+                    <input type="text" name="problem" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Estimated</label>
+                    <input type="text" name="estimated" class="form-control" required>
+                  </div>
+
+
+                <button class="btn btn-success" type="submit">Submit</button>
+              </form> <!--Form end-->
+            </div>
+
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <!-- /.card -->
+    </div>
+<%- include('./footer.ejs') %>
