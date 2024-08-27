@@ -1,4 +1,14 @@
 const UserModel = require("../models/User");
+const bcrypt = require ('bcrypt')
+
+
+
+
+
+
+
+
+
 class FrontController {
   static home = async (req, res) => {
     try {
@@ -33,10 +43,11 @@ class FrontController {
       } else {
         if (name && email && password && cpassword) {
           if (password && cpassword) {
+            const hashpassword = await bcrypt.hash(password, 10)
             const r = new UserModel({
               name: name,
               email: email,
-              password: password,
+              password: hashpassword,
             });
             await r.save();
             res.redirect("/login");
@@ -53,7 +64,20 @@ class FrontController {
   };
   static verifylogin = async (req, res) => {
     try {
-      res.redirec("/admin/dashboard");
+    //  console.log(req.body)
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({ email: email });
+    if (user) {
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (isMatch) {
+        res.redirect("/admin/dashboard");
+        } else {
+          res.redirect("/login");
+          }
+          } else {
+            res.redirect("/login");
+            }
+
     } catch (error) {
       console.log(error);
     }

@@ -11,6 +11,7 @@ route.get('/register',FrontController.regitser)
 route.get('/login',FrontController.login)
 // User Controller
  route.post('/userinsert',FrontController.userInsert)
+ route.post('/verifylogin',FrontController.verifylogin)
 
 // Admin Controller
 route.get('/admin/dashboard',AdminController.dashboard)
@@ -24,5 +25,6 @@ route.post('/user/insertcomplaint',UserController.insertcomplaint)
 route.get('/user/viewcomplaint/:id',UserController.viewcomaplint)
 route.get('/user/editcomplaint/:id',UserController.editcomplaint)
 route.post('/user/updatecomplaint/:id',UserController.updatecomplaint)
+route.get('/user/printcomplaint/:id',UserController.printcomplaint)
 
 module.exports = route

@@ -10,8 +10,10 @@ class UserController {
   static addcomplaint = async (req, res) => {
     try {
       const data = await ComplaintModel.find()
+      
+      // console.log(data);
 
-      res.render("user/addcomplaint", { d: data });
+      res.render("user/addcomplaint", { d: data});
     } catch (error) {
       console.log(error);
     }
@@ -20,9 +22,10 @@ class UserController {
     try {
       // console.log("Insert Data")
       //  console.log(req.body)
-      const { name, email, model, brand, device, problem, estimated } = req.body
+      const { name, phone, email, model, brand, device, problem, estimated } = req.body
       const r = new ComplaintModel({
         name: name,
+        phone:phone,
         email: email,
         model: model,
         brand: brand,
@@ -42,6 +45,14 @@ class UserController {
       res.render("user/viewcomplaint", { d: data })
 
     } catch (error) {
+      console.log(error);
+    }
+  }
+  static printcomplaint = async(req,res)=>{
+    try{
+      const data = await ComplaintModel.findById(req.params.id)
+      res.render("user/printcomplaint", { d: data })
+    }catch(error){
       console.log(error);
     }
   }

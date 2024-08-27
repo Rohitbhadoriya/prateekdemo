@@ -4,6 +4,16 @@ const app = express()
 const port = 5500
 const web  = require('./routes/web')
 const connectdb = require('./db/connectdb')
+const session  = require('express-session')
+const flash  = require('connect-flash')
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+
+}));
+
+app.use(flash());
 
 
 

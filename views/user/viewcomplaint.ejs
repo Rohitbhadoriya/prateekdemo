@@ -1,5 +1,6 @@
 <%- include('./header.ejs') %>
 <%- include('./sidebar.ejs') %>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) --> 
     <div class="card">
@@ -9,42 +10,53 @@
         </div>
         
         <!-- /.card-header -->
-        <div class="card-body">
+    
          
-          <table id="example1" class="table table-bordered table-striped">
-            <thead>
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Model</th>
-              <th>Brand</th>
-              <th>Device</th>
-              <th>Problem</th>
-              <th>Estimated</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <td><%= d._id %></td>
-                  <td><%= d.name %></td>
-                  <td><%= d.email %></td>
-                  <td><%= d.model %></td>
-                  <td><%= d.brand %></td>
-                  <td><%= d.device %></td>
-                  <td><%= d.problem %></td>
-                  <td><%= d.estimated %></td>
-                </tr>
-         
-            </tbody>
-            <tfoot>
-            </tfoot>
-          </table>
-        </div>
+        <table id="example1" class="table table-bordered table-striped">
+                
+          <thead>
+
+          <tr>
+ 
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Model</th>
+            <th>Brand</th>
+            <th>Device</th>
+            <th>Problem</th>
+            <th>Estimated</th>
+            
+            
+          </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td><%= d._id %></td>
+                <td><%= d.name %></td>
+                <td><%= d.email %></td>
+                <td><%= d.model %></td>
+                <td><%= d.brand %></td>
+                <td><%= d.device %></td>
+                <td><%= d.problem %></td>
+                <td><%= d.estimated %></td>
+               <td>
+
+               </td>
+               
+               
+              </tr>
+       
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table> 
+      
         <!-- /.card-body -->
       </div>
       <!--Modal tag Start -->
       <!-- /.modal -->
       <!-- /.card -->
     </div>
+    
 <%- include('./footer.ejs') %>

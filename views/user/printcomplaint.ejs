@@ -1,0 +1,49 @@
+<%- include('.//..//header1.ejs') %>
+
+    <div class="bill" id="bill">
+        <center>
+            <h1>PRATEEK MOBILE</h1>
+        </center>
+    <center>
+        <h2>Job Sheet</h2>
+    </center>
+        <hr>
+        <span>Job No</span> &nbsp; &nbsp; &nbsp; <span><%= pm++%></span>
+        <br>
+        <span>Name:</span> &nbsp;<span><%= d.name %></span>
+        <br>
+        <span>Phone:</span> &nbsp; &nbsp;<span><%= d.phone %></span>
+        <br>
+        <span>Device:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span><%= d.device %></span>
+        <br>
+        <span>Model:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span><%= d.model %></span>
+        <br>
+        <span>Problem:</span>&nbsp; &nbsp;<span><%= d.problem %></span>
+        <br>
+        <span>Estimated:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span><%= d.estimated %></span>
+  <hr>
+  <span>Terms & Condition</span>
+  <p>1. Estimated may be changed after repairing</p>
+  <p>2. No Responsebility of data lost</p>
+  <p>3. All subject to Gwalior jurisdietion</p>
+  <p>4. No Responsebility Unclamied repaied devices after <b>30 Days</b></p>
+  <p>5. Warranty on screen replacement is only for touch related issues,and other issues like discoloration or lining on screen will be not be covered  under warranty.</p>
+        <!-- <p>ID:<%= d._id %></p>
+        <hr>
+        <p>Name:<%= d.name %></p>
+        <hr>
+        <p>email:<%= d.email %></p>
+        <hr>
+        <p>Model:<%= d.model %></p>
+        <hr>
+        <p>Probelm:<%= d.problem %></p>
+        <hr>
+        <p>Estimated:<%= d.estimated %></p>
+        <hr> -->
+
+
+    </div>
+   
+
+<button onclick="printBill()">Print Bill</button>
+

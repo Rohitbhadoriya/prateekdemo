@@ -14,8 +14,10 @@
           <table id="example1" class="table table-bordered table-striped">
             <thead>
             <tr>
-              <th>Id</th>
+              <th>Sr.No</th>
+              <th>Job No</th>
               <th>Name</th>
+              <th>Number</th>
               <th>Email</th>
               <th>Model</th>
               <th>Brand</th>
@@ -26,11 +28,15 @@
             </tr>
             </thead>
             <tbody>
-              
+              <% i =1%>
+              <%pm = 25%>
               <% d.forEach((item)=>{ %>
                 <tr>
-                  <td><%= item._id %></td>
+                  <!-- <td><%= item._id %></td> -->
+                  <td><%= i++%></td>
+                  <td>pm6<%= pm++%></td>
                   <td><%= item.name %></td>
+                  <td><%= item.phone %></td>
                   <td><%= item.email %></td>
                   <td><%= item.model %></td>
                   <td><%= item.brand %></td>
@@ -41,6 +47,9 @@
                     <a href="/user/viewcomplaint/<%= item._id %>" class="btn btn-success">View</a>
                     <a href="/user/editcomplaint/<%= item._id %>" class="btn btn-info">Edit</a>
                     <a href="" class="btn btn-danger">Delete</a>
+                    <a href="/user/printcomplaint/<%=item._id%>" class="btn btn-danger">Print</a>
+
+                   
                   </td>
                 </tr>
              <% }) %>
@@ -67,6 +76,10 @@
                 <div class="form-group">
                   <label>Name</label>
                   <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Phone</label>
+                  <input type="number" name="phone" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label>email</label>

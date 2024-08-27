@@ -8,6 +8,10 @@ const ComplaintSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    phone:{
+        type:Number,
+        required:true
+        },
     model:{
         type:String,
         required:true
