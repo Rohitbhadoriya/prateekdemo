@@ -1,3 +1,4 @@
+
 const UserModel = require("../models/User");
 const bcrypt = require ('bcrypt')
 
@@ -82,5 +83,6 @@ class FrontController {
       console.log(error);
     }
   };
+  
 }
 module.exports = FrontController;

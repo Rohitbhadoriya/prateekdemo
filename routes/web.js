@@ -26,5 +26,7 @@ route.get('/user/viewcomplaint/:id',UserController.viewcomaplint)
 route.get('/user/editcomplaint/:id',UserController.editcomplaint)
 route.post('/user/updatecomplaint/:id',UserController.updatecomplaint)
 route.get('/user/printcomplaint/:id',UserController.printcomplaint)
+route.get('/user/deletecomplaint/:id',UserController.deletecomplaint)
+
 
 module.exports = route

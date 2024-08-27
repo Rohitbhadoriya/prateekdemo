@@ -68,10 +68,11 @@ class UserController {
   }
   static updatecomplaint = async (req, res) => {
     try {
-      const { name, email, model, brand, device, problem, estimated } = req.body
+      const { name,phone, email, model, brand, device, problem, estimated } = req.body
       const id = req.params.id
       const r = await ComplaintModel.findByIdAndUpdate(id, {
         name: name,
+        phone:phone,
         email: email,
         model: model,
         brand: brand,
@@ -84,6 +85,14 @@ class UserController {
           console.log(error);
           }
         }
-        
+     static deletecomplaint = async (req,res)=>{
+      try{
+        const data = await ComplaintModel.findByIdAndDelete(req.params.id)
+        res.redirect("/user/addcomplaint");
+
+     }catch(error){
+      console.log(error);
+     } 
+}
 }
 module.exports = UserController;
