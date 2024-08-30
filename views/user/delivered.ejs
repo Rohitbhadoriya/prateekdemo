@@ -1,11 +1,10 @@
 <%- include('./header.ejs') %>
 <%- include('./sidebar.ejs') %>
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) --> 
     <div class="card">
         <div class="card-header">
-          <h3 class="card-title">View Complaint</h3>
+          <h3 class="card-title">Delivered Complaint</h3>
          
         </div>
         
@@ -15,48 +14,29 @@
         <table id="example1" class="table table-bordered table-striped">
                 
           <thead>
-
+            
           <tr>
- 
-            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Model</th>
-            <th>Brand</th>
-            <th>Device</th>
             <th>Problem</th>
             <th>Estimated</th>
-            <th>Part Charge</th>
-            <th>Part Description</th>
-            <th>Service Charge</th>
             <th>Status</th>
-            <th>Remark</th>
             
             
           </tr>
           </thead>
           <tbody>
+            <% de.forEach(data => { %>
               <tr>
-                <td><%= d._id %></td>
-                <td><%= d.name %></td>
-                <td><%= d.email %></td>
-                <td><%= d.model %></td>
-                <td><%= d.brand %></td>
-                <td><%= d.device %></td>
-                <td><%= d.problem %></td>
-                <td><%= d.estimated %></td>
-                <td><%= d.pcharge %></td>
-                <td><%= d.pdescription %></td>
-                <td><%= d.scharge %></td>
-                <td><%= d.status %></td>
-                <td><%= d.remark %></td>
-               <td>
-
-               </td>
+                <td><%= data.name %></td>
+                <td><%= data.email %></td>
+                <td><%= data.problem %></td>
+                <td><%= data.estimated %></td>
+                <td><%= data.status %></td>
                
                
               </tr>
-       
+              <% }); %>
           </tbody>
           <tfoot>
           </tfoot>
@@ -68,5 +48,4 @@
       <!-- /.modal -->
       <!-- /.card -->
     </div>
-    
 <%- include('./footer.ejs') %>

@@ -28,9 +28,34 @@ const ComplaintSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    estimated:{
+    engineer:{
         type:String,
         required:true
+    },
+    pcharge:{
+        type:String,
+      
+    },
+    pdescription:{
+        type:String,
+        
+    },
+    scharge:{
+        type:String,
+        
+    },
+    remark:{
+        type:String,
+        
+    },
+    
+    estimated:{
+        type:String,
+        
+    },
+    status:{
+        type: String,
+        default:'process'
     },
     
 },{timestamps:true})

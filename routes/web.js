@@ -2,6 +2,7 @@ const express = require('express')
 const FrontController = require('../controllers/Frontcontroller')
 const AdminController = require('../controllers/admin/AdminController')
 const UserController = require('../controllers/UserController')
+const EngineerController = require('../controllers/EngineerController')
 const route  = express.Router()
 
 
@@ -27,6 +28,14 @@ route.get('/user/editcomplaint/:id',UserController.editcomplaint)
 route.post('/user/updatecomplaint/:id',UserController.updatecomplaint)
 route.get('/user/printcomplaint/:id',UserController.printcomplaint)
 route.get('/user/deletecomplaint/:id',UserController.deletecomplaint)
+route.get('/user/delivered',UserController.delivery)
+route.get('/user/ok',UserController.ok)
+route.get('/user/rwr',UserController.rwr)
 
 
+
+// engineer Controller
+route.get('/engineer/dashboard',EngineerController.dashboardengineer)
+route.get('/engineer/addengineer',EngineerController.addengineer)
+route.post('/engineer/insertengineer',EngineerController.insertengineer)
 module.exports = route
