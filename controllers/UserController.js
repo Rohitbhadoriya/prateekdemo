@@ -23,7 +23,7 @@ class UserController {
   static insertcomplaint = async (req, res) => {
     try {
       // console.log("Insert Data")
-      //  console.log(req.body)
+       console.log(req.body)
       const {
         name,
         phone,
