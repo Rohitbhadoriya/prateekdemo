@@ -138,7 +138,7 @@ class UserController {
   };
   static ok = async (req, res) => {
     try {
-      const data = await ComplaintModel.find(); 
+      const data = await ComplaintModel.find();
       console.log(data);
       const ok = data.filter((k) => k.status === "OK");
       console.log(ok);
@@ -147,15 +147,15 @@ class UserController {
       console.log(error);
     }
   };
-   static rwr = async(req,res)=>{
+  static rwr = async (req, res) => {
     try {
       const data = await ComplaintModel.find();
       console.log(data);
-      const rw = data.filter((r)=> r.status === "RWR")
-      res.render('user/rwr',{r:rw})
+      const rw = data.filter((r) => r.status === "RWR");
+      res.render("user/rwr", { r: rw });
     } catch (error) {
       console.log(error);
     }
-   }
+  };
 }
 module.exports = UserController;
