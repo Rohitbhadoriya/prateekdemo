@@ -1,5 +1,10 @@
 const ComplaintModel = require("../models/Complaint");
 const EngineerModel = require("../models/Engineer");
+// For Random Number 
+const { v4: uuidv4 } = require('uuid'); 
+
+
+
 class UserController {
   static dashboard = async (req, res) => {
     try {
@@ -35,6 +40,7 @@ class UserController {
         engineer,
         estimated,
       } = req.body;
+      const jobNumber = `JOB-${uuidv4().slice(0, 4).toUpperCase()}`;
       const r = new ComplaintModel({
         name: name,
         phone: phone,
@@ -45,6 +51,7 @@ class UserController {
         problem: problem,
         engineer: engineer,
         estimated: estimated,
+        jobNumber
       });
       await r.save();
       res.redirect("/user/addcomplaint");
@@ -147,6 +154,7 @@ class UserController {
       console.log(error);
     }
   };
+  
   static rwr = async (req, res) => {
     try {
       const data = await ComplaintModel.find();

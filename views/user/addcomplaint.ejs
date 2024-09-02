@@ -15,7 +15,7 @@
             <thead>
             <tr>
               <th>Sr.No</th>
-              <!-- <th>Job No</th> -->
+              <th>Job No</th>
               <th>Name</th>
               <th>Number</th>
               <th>Email</th>
@@ -30,13 +30,14 @@
             </thead>
             <tbody>
               <% i =1%>
-              <%pm = 0%>
+            
               <% d.forEach((item)=>{ %>
                
                 <tr>
                   
                   <!-- <td><%= item._id %></td> -->
                   <td><%= i++%></td>
+                  <td><%= item.jobNumber %></td>
                   <td><%= item.name %></td>
                   <td><%= item.phone %></td>
                   <td><%= item.email %></td>

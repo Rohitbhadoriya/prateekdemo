@@ -57,6 +57,12 @@ const ComplaintSchema = new mongoose.Schema({
         type: String,
         default:'process'
     },
+    jobNumber: {
+        type: String,
+        unique: true,
+        required: true
+      },
+
     
 },{timestamps:true})
 const ComplaintModel = mongoose.model('complaint',ComplaintSchema)
