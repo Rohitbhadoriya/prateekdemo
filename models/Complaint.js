@@ -62,6 +62,11 @@ const ComplaintSchema = new mongoose.Schema({
         unique: true,
         required: true
       },
+      createdAt: {
+        type: Date,
+        default: Date.now
+      },
+
 
     
 },{timestamps:true})

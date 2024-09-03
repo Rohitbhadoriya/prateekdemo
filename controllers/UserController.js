@@ -2,6 +2,8 @@ const ComplaintModel = require("../models/Complaint");
 const EngineerModel = require("../models/Engineer");
 // For Random Number 
 const { v4: uuidv4 } = require('uuid'); 
+// Date 
+const moment = require('moment');
 
 
 
@@ -79,7 +81,8 @@ class UserController {
     try {
       // console.log(req.params.id)
       const data = await ComplaintModel.findById(req.params.id);
-      res.render("user/editcomplaint", { d: data });
+      const engineer = await EngineerModel.find();
+      res.render("user/editcomplaint", { d: data, er: engineer});
     } catch (error) {
       console.log(error);
     }
@@ -165,5 +168,17 @@ class UserController {
       console.log(error);
     }
   };
+  static todaycomplaints = async(req,res)=>{
+    try{
+      const startOfToday = moment().startOf('day').toDate(); 
+      const endOfToday = moment().endOf('day').toDate();
+      const data = await ComplaintModel.find({
+        createdAt: { $gte: startOfToday, $lte: endOfToday }
+      });
+      res.render("user/todaycomplaint", { d: data });
+        }catch(error){
+      console.log(error);
+    }
+  }
 }
 module.exports = UserController;

@@ -31,6 +31,7 @@ route.get('/user/deletecomplaint/:id',UserController.deletecomplaint)
 route.get('/user/delivered',UserController.delivery)
 route.get('/user/ok',UserController.ok)
 route.get('/user/rwr',UserController.rwr)
+route.get('/user/todaycomplaint',UserController.todaycomplaints)
 
 
 
