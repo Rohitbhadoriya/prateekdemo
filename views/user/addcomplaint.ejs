@@ -1,136 +1,163 @@
-<%- include('./header.ejs') %>
-<%- include('./sidebar.ejs') %>
+<%- include('./header.ejs') %> <%- include('./sidebar.ejs') %>
 <div class="content-wrapper">
-    <!-- Content Header (Page header) --> 
-    <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Display Complaint List</h3>
-          <button data-toggle="modal" data-target="#modal-default" class="btn btn-success" style="float: right;">Add Complaint</button>
-        </div>
-        
-        <!-- /.card-header -->
-        <div class="card-body">
-         
-          <table id="example1" class="table table-bordered table-striped">
-            <thead>
-            <tr>
-              <th>Sr.No</th>
-              <th>Job No</th>
-              <th>Name</th>
-              <th>Number</th>
-              <th>Email</th>
-              <th>Model</th>
-              <th>Brand</th>
-              <th>Device</th>
-              <th>Problem</th>
-              <th>Engineer</th>
-              <th>Estimated</th>
-              <th>Action</th> 
-            </tr>
-            </thead>
-            <tbody>
-              <% i =1%>
-            
-              <% d.forEach((item)=>{ %>
-               
-                <tr>
-                  
-                  <!-- <td><%= item._id %></td> -->
-                  <td><%= i++%></td>
-                  <td><%= item.jobNumber %></td>
-                  <td><%= item.name %></td>
-                  <td><%= item.phone %></td>
-                  <td><%= item.email %></td>
-                  <td><%= item.model %></td>
-                  <td><%= item.brand %></td>
-                  <td><%= item.device %></td>
-                  <td><%= item.problem %></td>
-                  <td><%= item.engineer%></td>
-                  <td><%= item.estimated %></td>
-                  <td>
-                    <a href="/user/viewcomplaint/<%= item._id %>" class="btn btn-success">View</a>
-                    <a href="/user/editcomplaint/<%= item._id %>" class="btn btn-info">Edit</a>
-                    <a href="/user/deletecomplaint/<%= item._id %>" class="btn btn-danger">Delete</a>
-                    <a href="/user/printcomplaint/<%=item._id%>" class="btn btn-danger">Print</a>
-
-                   
-                  </td>
-                </tr>
-             <% }) %>
-         
-            </tbody>
-            <tfoot>
-            </tfoot>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!--Modal tag Start -->
-      <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Add Complaint</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form action="/user/insertcomplaint" method="post" >
-                <div class="form-group">
-                  <label>Name</label>
-                  <input type="text" name="name" class="form-control" required>
-                </div>
-                <div class="form-group">
-                  <label>Phone</label>
-                  <input type="number" name="phone" class="form-control" required>
-                </div>
-                <div class="form-group">
-                  <label>email</label>
-                  <input type="text" name="email" class="form-control" >
-                </div>
-                <div class="form-group">
-                  <label>Model</label>
-                  <input type="text" name="model" class="form-control" required>
-                </div> 
-                <div class="form-group">
-                  <label>Brand</label>
-                  <input type="text" name="brand" class="form-control" required>
-                </div>
-                <div class="form-group">
-                  <label>Device</label>
-                  <input type="text" name="device" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label>Problem</label>
-                    <input type="text" name="problem" class="form-control" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="" >Engineer</label>
-                    <select name="engineer" id="" class="form-control">
-                      <option value="">Select Engineer</option>
-                      <% er.forEach((item)=>{ %>
-                        <option value="<%= item.name %>"><%= item.name %></option>
-                 <%  }) %>                 
-                    </select>
-                  </div>
-             
-                  <div class="form-group">
-                    <label>Estimated</label>
-                    <input type="text" name="estimated" class="form-control" required>
-                  </div>
-
-
-                <button class="btn btn-success" type="submit">Submit</button>
-              </form> <!--Form end-->
-            </div>
-
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-      <!-- /.card -->
+  <!-- Content Header (Page header) -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Display Complaint List</h3>
+      <button
+        data-toggle="modal"
+        data-target="#modal-default"
+        class="btn btn-success"
+        style="float: right"
+      >
+        Add Complaint
+      </button>
     </div>
+
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Sr.No</th>
+            <th>Job No</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Email</th>
+            <th>Model</th>
+            <th>Brand</th>
+            <th>Device</th>
+            <th>Problem</th>
+            <th>Engineer</th>
+            <th>Estimated</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% i =1%> <% d.forEach((item)=>{ %>
+
+          <tr>
+            <!-- <td><%= item._id %></td> -->
+            <td><%= i++%></td>
+            <td><%= item.jobNumber %></td>
+            <td><%= item.name %></td>
+            <td><%= item.phone %></td>
+            <td><%= item.email %></td>
+            <td><%= item.model %></td>
+            <td><%= item.brand %></td>
+            <td><%= item.device %></td>
+            <td><%= item.problem %></td>
+            <td><%= item.engineer%></td>
+            <td><%= item.estimated %></td>
+            <td>
+              <a
+                href="/user/viewcomplaint/<%= item._id %>"
+                class="btn btn-success"
+                >View</a
+              >
+              <a href="/user/editcomplaint/<%= item._id %>" class="btn btn-info"
+                >Edit</a
+              >
+              <a
+                href="/user/deletecomplaint/<%= item._id %>"
+                class="btn btn-danger"
+                >Delete</a
+              >
+              <a
+                href="/user/printcomplaint/<%=item._id%>"
+                class="btn btn-danger"
+                >Print</a
+              >
+              <!-- WhatsApp Share Button -->
+              <a
+                href="https://wa.me/?text=Job No: <%= item.jobNumber %>%0AName: <%= item.name %>%0ANumber: <%= item.phone %>%0AProblem: <%= item.problem %>"
+                class="btn btn-success"
+                target="_blank"
+                >Share on WhatsApp</a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+        <tfoot></tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!--Modal tag Start -->
+  <div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Complaint</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/user/insertcomplaint" method="post">
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" name="name" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="number" name="phone" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label>email</label>
+              <input type="text" name="email" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Model</label>
+              <input type="text" name="model" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label>Brand</label>
+              <input type="text" name="brand" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label>Device</label>
+              <input type="text" name="device" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label>Problem</label>
+              <input type="text" name="problem" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label for="">Engineer</label>
+              <select name="engineer" id="" class="form-control">
+                <option value="">Select Engineer</option>
+                <% er.forEach((item)=>{ %>
+                <option value="<%= item.name %>"><%= item.name %></option>
+                <% }) %>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Estimated</label>
+              <input
+                type="text"
+                name="estimated"
+                class="form-control"
+                required
+              />
+            </div>
+
+            <button class="btn btn-success" type="submit">Submit</button>
+          </form>
+          <!--Form end-->
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <!-- /.card -->
+</div>
 <%- include('./footer.ejs') %>
