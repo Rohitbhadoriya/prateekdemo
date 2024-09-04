@@ -10,7 +10,13 @@ const moment = require('moment');
 class UserController {
   static dashboard = async (req, res) => {
     try {
-      res.render("user/dashboard");
+      const startOfToday = moment().startOf('day').toDate();
+      const endOfToday = moment().endOf('day').toDate();
+      const todaysComplaints = await ComplaintModel.find({
+        createdAt: { $gte: startOfToday, $lte: endOfToday }
+      });
+      const todaysEarnings = todaysComplaints.reduce((total, complaint) => total + (complaint.pcharge || 0), 0);
+      res.render("user/dashboard",{todaysComplaints, todaysEarnings});
     } catch (error) {
       console.log(error);
     }
@@ -170,12 +176,14 @@ class UserController {
   };
   static todaycomplaints = async(req,res)=>{
     try{
+      const engineer = await EngineerModel.find();
       const startOfToday = moment().startOf('day').toDate(); 
       const endOfToday = moment().endOf('day').toDate();
       const data = await ComplaintModel.find({
         createdAt: { $gte: startOfToday, $lte: endOfToday }
       });
-      res.render("user/todaycomplaint", { d: data });
+
+      res.render("user/todaycomplaint", { d: data, er: engineer});
         }catch(error){
       console.log(error);
     }

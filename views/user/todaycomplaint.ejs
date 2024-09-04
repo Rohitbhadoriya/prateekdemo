@@ -3,6 +3,14 @@
 <div class="content-wrapper">
     <div class="card">
         <div class="card-header">
+          <button
+        data-toggle="modal"
+        data-target="#modal-default"
+        class="btn btn-success"
+        style="float: right"
+      >
+        Add Complaint
+      </button>
           <h3 class="card-title">Today Complaints</h3>
         </div>
         <div class="card-body">
@@ -59,5 +67,83 @@
         </div>
     </div>
 </div>
+
+
+
+ <!--Modal tag Start -->
+ <div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Complaint</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/user/insertcomplaint" method="post">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="number" name="phone" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>email</label>
+            <input type="text" name="email" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label>Model</label>
+            <input type="text" name="model" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Brand</label>
+            <input type="text" name="brand" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Device</label>
+            <input type="text" name="device" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label>Problem</label>
+            <input type="text" name="problem" class="form-control" required />
+          </div>
+          <div class="form-group">
+            <label for="">Engineer</label>
+            <select name="engineer" id="" class="form-control">
+              <option value="">Select Engineer</option>
+              <% er.forEach((item)=>{ %>
+              <option value="<%= item.name %>"><%= item.name %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Estimated</label>
+            <input
+              type="text"
+              name="estimated"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+        <!--Form end-->
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <%- include('./footer.ejs') %>
