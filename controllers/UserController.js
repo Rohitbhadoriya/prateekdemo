@@ -12,11 +12,23 @@ class UserController {
     try {
       const startOfToday = moment().startOf('day').toDate();
       const endOfToday = moment().endOf('day').toDate();
+              // Fetch complaints created today
       const todaysComplaints = await ComplaintModel.find({
         createdAt: { $gte: startOfToday, $lte: endOfToday }
       });
-      const todaysEarnings = todaysComplaints.reduce((total, complaint) => total + (complaint.pcharge || 0), 0);
-      res.render("user/dashboard",{todaysComplaints, todaysEarnings});
+
+     // Calculate the total estimated value
+     const totalEstimated = todaysComplaints.reduce((sum, complaint) => {
+      return sum + (complaint.estimated || 0); // Add estimated field, default to 0 if not present
+    }, 0);
+
+
+
+
+
+
+      
+      res.render("user/dashboard",{todaysComplaints,totalEstimated});
     } catch (error) {
       console.log(error);
     }

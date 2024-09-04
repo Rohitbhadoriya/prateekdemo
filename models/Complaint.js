@@ -50,7 +50,8 @@ const ComplaintSchema = new mongoose.Schema({
     },
     
     estimated:{
-        type:String,
+        type: Number, 
+        default: 0
         
     },
     status:{
