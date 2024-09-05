@@ -1,0 +1,94 @@
+<%- include('./header.ejs') %> <%- include('./sidebar.ejs') %>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Edit Part</h3>
+      <button
+        data-toggle="modal"
+        data-target="#modal-default"
+        class="btn btn-success"
+        style="float: right"
+      >
+        Edit Part
+      </button>
+    </div>
+
+    <!-- /.card-header -->
+    <div class="card-body"></div>
+    <!-- /.card-body -->
+  </div>
+  <!--Modal tag Start -->
+  <div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Part</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/user/updatepart/<%= d._id %>" method="post">
+            <div class="form-group">
+              <label>Estimated</label>
+              <input
+                type="text"
+                name="estimated"
+                value="<%= d.estimated %>"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Part Charge</label>
+              <input
+                type="text"
+                name="pcharge"
+                value="<%= d.pcharge %>"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Part Description</label>
+              <input
+                type="text"
+                name="pdescription"
+                value="<%= d.pdescription %>"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Service Charge</label>
+              <input
+                type="text"
+                name="scharge"
+                value="<%= d.scharge %>"
+                class="form-control"
+                required
+              />
+            </div>
+           
+
+
+        
+            <button class="btn btn-success" type="submit">Submit</button>
+          </form>
+          <!--Form end-->
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  <!-- /.card -->
+</div>
+<%- include('./footer.ejs') %>

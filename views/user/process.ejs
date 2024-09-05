@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) --> 
     <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Delivered Complaint</h3>
+          <h3 class="card-title">Process Complaint</h3>
          
         </div>
         
@@ -16,7 +16,7 @@
           <thead>
             
           <tr>
-            <th>Job No</th>
+            <th>Job Number</th>
             <th>Name</th>
             <th>Email</th>
             <th>Problem</th>
@@ -28,7 +28,7 @@
           </tr>
           </thead>
           <tbody>
-            <% de.forEach(data => { %>
+            <% pr.forEach(data => { %>
               <tr>
                 <td><%= data.jobNumber %></td>
                 <td><%= data.name %></td>
@@ -37,7 +37,6 @@
                 <td><%= data.estimated %></td>
                 <td><%= data.status %></td>
                 <td><%= data.engineer %></td>
-
                
                
               </tr>

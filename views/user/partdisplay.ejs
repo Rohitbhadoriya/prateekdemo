@@ -1,0 +1,72 @@
+<%- include('./header.ejs') %>
+ <%- include('./sidebar.ejs') %>
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Display Complaint List</h3>
+        <button
+          data-toggle="modal"
+          data-target="#modal-default"
+          class="btn btn-success"
+          style="float: right"
+        >
+          Add Complaint
+        </button>
+      </div>
+  
+      <!-- /.card-header -->
+      <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Job No</th>
+              <th>Name</th>
+              <th>Number</th>
+              <th>Model</th>
+              <th>Brand</th>
+              <th>Engineer</th>
+              <th>Estimated</th>
+              <th>Part Charge</th>
+              <th>Part Description</th>
+              <th>Service Charge</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% i =1%> <% d.forEach((item)=>{ %>
+  
+            <tr>
+              <!-- <td><%= item._id %></td> -->
+              
+              <td><%= item.jobNumber %></td>
+              <td><%= item.name %></td>
+              <td><%= item.phone %></td>
+              <td><%= item.model %></td>
+              <td><%= item.brand %></td>
+              <td><%= item.engineer%></td>
+              <td><%= item.estimated %></td>
+              <td><%= item.pcharge %></td>
+              <td><%= item.pdescription %></td>
+              <td><%= item.scharge %></td>
+              <td><%= item.status %></td>
+              <td>
+                <a href="/user/editpart/<%= item._id %>" class="btn btn-info"
+                  >Edit</a>
+                
+              
+
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+          <tfoot></tfoot>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  
+    <!-- /.card -->
+  </div>
+ <%- include('./footer.ejs') %>

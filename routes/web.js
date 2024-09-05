@@ -3,6 +3,7 @@ const FrontController = require('../controllers/Frontcontroller')
 const AdminController = require('../controllers/admin/AdminController')
 const UserController = require('../controllers/UserController')
 const EngineerController = require('../controllers/EngineerController')
+const ParteditController = require('../controllers/ParteditController')
 const route  = express.Router()
 
 
@@ -31,7 +32,12 @@ route.get('/user/deletecomplaint/:id',UserController.deletecomplaint)
 route.get('/user/delivered',UserController.delivery)
 route.get('/user/ok',UserController.ok)
 route.get('/user/rwr',UserController.rwr)
+route.get('/user/process',UserController.process)
+
 route.get('/user/todaycomplaint',UserController.todaycomplaints)
+route.get('/user/partdisplay',ParteditController.partdisplay)
+route.get('/user/editpart/:id',ParteditController.partedit)
+route.post('/user/updatepart/:id',ParteditController.updatepart)
 
 
 

@@ -186,6 +186,16 @@ class UserController {
       console.log(error);
     }
   };
+  static process = async(req,res)=>{
+    try{
+const data = await ComplaintModel.find()
+console.log(data);
+const process = data.filter((pr)=> pr.status === "process")
+res.render("user/process",{pr:process,d:data})
+    }catch(error){
+      console.log(error);
+    }
+  }
   static todaycomplaints = async(req,res)=>{
     try{
       const engineer = await EngineerModel.find();
