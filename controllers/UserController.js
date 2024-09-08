@@ -61,6 +61,7 @@ class UserController {
         estimated,
       } = req.body;
       const jobNumber = `JOB-${uuidv4().slice(0, 4).toUpperCase()}`;
+      const createdAt = new Date(); // Get the current date and time
       const r = new ComplaintModel({
         name: name,
         phone: phone,
@@ -71,7 +72,8 @@ class UserController {
         problem: problem,
         engineer: engineer,
         estimated: estimated,
-        jobNumber
+        jobNumber,
+        createdAt: createdAt
       });
       await r.save();
       res.redirect("/user/addcomplaint");

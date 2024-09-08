@@ -12,7 +12,8 @@
         <p>2nd Floor,Rajeev Plaza, Jayendrganj Gwalior</p>
     </center>
         <hr>  
-        Date & Time:&nbsp;<span id="date-time"></span>  
+        <!-- Date & Time:&nbsp;<span id="date-time"></span>   -->
+        Date & Time:&nbsp;<span id="date-time"><%= new Date(d.createdAt).toLocaleString() %></span>  
        <br>
         <span>Job No:</span> &nbsp; &nbsp; &nbsp; <span><%= d.jobNumber %></span>
         <br>
