@@ -1,34 +1,26 @@
 const ComplaintModel = require("../models/Complaint");
 const EngineerModel = require("../models/Engineer");
-// For Random Number 
-const { v4: uuidv4 } = require('uuid'); 
-// Date 
-const moment = require('moment');
-
-
+// For Random Number
+const { v4: uuidv4 } = require("uuid");
+// Date
+const moment = require("moment");
 
 class UserController {
   static dashboard = async (req, res) => {
     try {
-      const startOfToday = moment().startOf('day').toDate();
-      const endOfToday = moment().endOf('day').toDate();
-              // Fetch complaints created today
+      const startOfToday = moment().startOf("day").toDate();
+      const endOfToday = moment().endOf("day").toDate();
+      // Fetch complaints created today
       const todaysComplaints = await ComplaintModel.find({
-        createdAt: { $gte: startOfToday, $lte: endOfToday }
+        createdAt: { $gte: startOfToday, $lte: endOfToday },
       });
 
-     // Calculate the total estimated value
-     const totalEstimated = todaysComplaints.reduce((sum, complaint) => {
-      return sum + (complaint.estimated || 0); // Add estimated field, default to 0 if not present
-    }, 0);
+      // Calculate the total estimated value
+      const totalEstimated = todaysComplaints.reduce((sum, complaint) => {
+        return sum + (complaint.estimated || 0); // Add estimated field, default to 0 if not present
+      }, 0);
 
-
-
-
-
-
-      
-      res.render("user/dashboard",{todaysComplaints,totalEstimated});
+      res.render("user/dashboard", { todaysComplaints, totalEstimated });
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +40,7 @@ class UserController {
   static insertcomplaint = async (req, res) => {
     try {
       // console.log("Insert Data")
-       console.log(req.body)
+      console.log(req.body);
       const {
         name,
         phone,
@@ -73,7 +65,7 @@ class UserController {
         engineer: engineer,
         estimated: estimated,
         jobNumber,
-        createdAt: createdAt
+        createdAt: createdAt,
       });
       await r.save();
       res.redirect("/user/addcomplaint");
@@ -102,7 +94,7 @@ class UserController {
       // console.log(req.params.id)
       const data = await ComplaintModel.findById(req.params.id);
       const engineer = await EngineerModel.find();
-      res.render("user/editcomplaint", { d: data, er: engineer});
+      res.render("user/editcomplaint", { d: data, er: engineer });
     } catch (error) {
       console.log(error);
     }
@@ -126,7 +118,7 @@ class UserController {
         remark,
       } = req.body;
       const id = req.params.id;
-      const r = await ComplaintModel.findByIdAndUpdate(id, {
+      const r = {
         name: name,
         phone: phone,
         email: email,
@@ -141,7 +133,11 @@ class UserController {
         scharge: scharge,
         status: status,
         remark: remark,
-      });
+      };
+      if (status === "Delivered") {
+        r.deliveredAt = new Date(); // Set current date and time
+      }
+      await ComplaintModel.findByIdAndUpdate(id, r);
       res.redirect("/user/addcomplaint");
     } catch (error) {
       console.log(error);
@@ -166,6 +162,8 @@ class UserController {
       console.log(error);
     }
   };
+  // Date and Time
+
   static ok = async (req, res) => {
     try {
       const data = await ComplaintModel.find();
@@ -177,7 +175,29 @@ class UserController {
       console.log(error);
     }
   };
-  
+  static okedit = async(req,res)=>{
+    try{
+      console.log(req.params.id)
+      const data = await ComplaintModel.findById(req.params.id);
+      res.render("user/okedit",{data:data})
+
+    }catch(error){
+      console.log(error);
+    }
+  }
+  static okupdate = async(req,res)=>{
+    try{
+      const{status} = req.body;
+      const id = req.params.id
+          const data = await ComplaintModel.findByIdAndUpdate(id,{
+           status:status
+        });
+        res.redirect("/user/delivered");
+    }catch(error){
+      console.log(error);
+    }
+  }
+
   static rwr = async (req, res) => {
     try {
       const data = await ComplaintModel.find();
@@ -188,29 +208,29 @@ class UserController {
       console.log(error);
     }
   };
-  static process = async(req,res)=>{
-    try{
-const data = await ComplaintModel.find()
-console.log(data);
-const process = data.filter((pr)=> pr.status === "process")
-res.render("user/process",{pr:process,d:data})
-    }catch(error){
+  static process = async (req, res) => {
+    try {
+      const data = await ComplaintModel.find();
+      console.log(data);
+      const process = data.filter((pr) => pr.status === "process");
+      res.render("user/process", { pr: process, d: data });
+    } catch (error) {
       console.log(error);
     }
-  }
-  static todaycomplaints = async(req,res)=>{
-    try{
+  };
+  static todaycomplaints = async (req, res) => {
+    try {
       const engineer = await EngineerModel.find();
-      const startOfToday = moment().startOf('day').toDate(); 
-      const endOfToday = moment().endOf('day').toDate();
+      const startOfToday = moment().startOf("day").toDate();
+      const endOfToday = moment().endOf("day").toDate();
       const data = await ComplaintModel.find({
-        createdAt: { $gte: startOfToday, $lte: endOfToday }
+        createdAt: { $gte: startOfToday, $lte: endOfToday },
       });
 
-      res.render("user/todaycomplaint", { d: data, er: engineer});
-        }catch(error){
+      res.render("user/todaycomplaint", { d: data, er: engineer });
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 module.exports = UserController;

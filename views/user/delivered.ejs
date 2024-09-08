@@ -23,7 +23,7 @@
             <th>Estimated</th>
             <th>Status</th>
             <th>Engineer</th>
-      
+            <th>Date & Time </th>
             
             
           </tr>
@@ -38,6 +38,13 @@
                 <td><%= data.estimated %></td>
                 <td><%= data.status %></td>
                 <td><%= data.engineer %></td>
+                <td>
+                  <% if (data.deliveredAt) { %>
+                    <%= new Date(data.deliveredAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true }) %>
+                  <% } else { %>
+                    Not Delivered
+                  <% } %>
+                </td>
 
                
                

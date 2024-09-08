@@ -24,6 +24,7 @@
             <th>Status</th>
             <th>Model</th>
             <th>Engineer</th>
+            <th>Action</th>
             
             
           </tr>
@@ -39,7 +40,12 @@
                 <td><%= data.status %></td>
                 <td><%= data.model %></td>               
                 <td><%= data.engineer %></td>
-               
+                <td>
+                  <a
+                    href="/user/okedit/<%= data._id %>"
+                    class="btn btn-success"
+                    >Edit</a
+                  >
                
               </tr>
               <% }); %>

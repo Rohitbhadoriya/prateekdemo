@@ -31,6 +31,9 @@ route.get('/user/printcomplaint/:id',UserController.printcomplaint)
 route.get('/user/deletecomplaint/:id',UserController.deletecomplaint)
 route.get('/user/delivered',UserController.delivery)
 route.get('/user/ok',UserController.ok)
+route.get('/user/okedit/:id',UserController.okedit)
+route.post('/user/okupdate/:id',UserController.okupdate)
+
 route.get('/user/rwr',UserController.rwr)
 route.get('/user/process',UserController.process)
 
