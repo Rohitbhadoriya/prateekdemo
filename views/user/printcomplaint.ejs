@@ -13,7 +13,9 @@
     </center>
         <hr>  
         <!-- Date & Time:&nbsp;<span id="date-time"></span>   -->
-        Date & Time:&nbsp;<span id="date-time"><%= new Date(d.createdAt).toLocaleString() %></span>  
+        Date & Time:&nbsp;<span id="date-time"><%= new Date(d.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true }) %></span>  
+        <br>
+        <span>Job No:</span> &nbsp; &nbsp; &nbsp; <span><%= d.jobNumber %></span> 
        <br>
         <span>Job No:</span> &nbsp; &nbsp; &nbsp; <span><%= d.jobNumber %></span>
         <br>
