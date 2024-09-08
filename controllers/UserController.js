@@ -189,9 +189,14 @@ class UserController {
     try{
       const{status} = req.body;
       const id = req.params.id
-          const data = await ComplaintModel.findByIdAndUpdate(id,{
+          const data = {
            status:status
-        });
+        };
+        if (status === "Delivered") {
+          data.deliveredAt = new Date(); // Set current date and time
+        }
+        await ComplaintModel.findByIdAndUpdate(id, data);
+
         res.redirect("/user/delivered");
     }catch(error){
       console.log(error);
