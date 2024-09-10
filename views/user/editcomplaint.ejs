@@ -164,7 +164,15 @@
            <%  }) %>                 
               </select>
             </div>
-
+            <div class="form-group">
+              <label for="">Mode</label>
+              <select name="mode" id="" class="form-control">
+                <option value="">Select Payment</option>
+                <option value="Online">Online</option>
+                <option value="Cash">Cash</option>
+                <option value="Cash + Online">Cash + Online</option>
+              </select>
+            </div>
 
             <div class="form-group">
               <label for="">Status</label>
@@ -173,6 +181,7 @@
                 <option value="Delivered">Delivered</option>
                 <option value="RWR">RWR</option>
                 <option value="OK">OK</option>
+                <option value="RWR + Delivered">RWR + Delivered</option>
               </select>
             </div>
             <button class="btn btn-success" type="submit">Submit</button>

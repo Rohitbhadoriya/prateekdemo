@@ -3,18 +3,20 @@ const ComplaintModel = require("../models/Complaint");
 class ParteditController{
 static partdisplay = async(req,res)=>{
     try{
-        const data = await ComplaintModel.find();
+        const{_id: userId,name,image} = req.data1
+        const data = await ComplaintModel.find({ user: userId });
 
-res.render("user/partdisplay",{d:data})
+res.render("user/partdisplay",{d:data, nm:name,img:image})
     }catch(error){
         console.log(error);
     }
 }
 static partedit = async(req,res)=>{
     try{
+        const{name,image} = req.data1
   console.log(req.params.id)
   const data = await ComplaintModel.findById(req.params.id);
-  res.render("user/editpart",{d:data});
+  res.render("user/editpart",{d:data,nm:name,img:image});
     }catch(error){
         console.log(error);
     }

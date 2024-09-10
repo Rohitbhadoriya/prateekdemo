@@ -12,7 +12,7 @@
       />
     </div>
     <div class="col-lg-6 bglogin p-4">
-      <form action="/userinsert" method="post">
+      <form action="/userinsert" method="post" enctype="multipart/form-data">
 
           <!-- Heading (Register Here) -->
           <h1 class="mb-5 text-center">Register Here</h1>        
@@ -52,7 +52,10 @@
                   <input class="form-control" name="cpassword" type="password" required>
               </div>
           </div>
-
+          <div class="form-group">
+            <label>Image</label>
+            <input type="file" name="image" class="form-control" required>
+          </div>
           <!-- Choose File -->
           <!-- Button (Login) -->
           <center>

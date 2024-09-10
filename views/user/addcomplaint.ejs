@@ -17,21 +17,25 @@
 
     <!-- /.card-header -->
     <div class="card-body">
-      <table id="example1" class="table table-bordered table-striped">
+      <table id="example1" class="table  table-sm table-striped table-borderless  table-hover">
         <thead>
           <tr>
-            <th>Sr.No</th>
+            <th>S.No</th>
             <th>Job No</th>
             <th>Name</th>
             <th>Number</th>
-            <th>Email</th>
+            <!-- <th>Email</th> -->
             <th>Model</th>
             <th>Brand</th>
             <th>Device</th>
             <th>Problem</th>
+            <th>Remark</th>
             <th>Engineer</th>
             <th>Estimated</th>
             <th>Action</th>
+            <th>Reparing Status</th>
+            <th>Delivered  Status</th>
+           
             <th>Date & Time Created</th>
           </tr>
         </thead>
@@ -44,40 +48,66 @@
             <td><%= item.jobNumber %></td>
             <td><%= item.name %></td>
             <td><%= item.phone %></td>
-            <td><%= item.email %></td>
+            <!-- <td><%= item.email %></td> -->
             <td><%= item.model %></td>
             <td><%= item.brand %></td>
             <td><%= item.device %></td>
             <td><%= item.problem %></td>
+            <td><%= item.remark %></td>
             <td><%= item.engineer%></td>
             <td><%= item.estimated %></td>
             <td>
               <a
                 href="/user/viewcomplaint/<%= item._id %>"
                 class="btn btn-success"
-                >View</a
+                ><span class="material-symbols-outlined fs-6">
+                  visibility
+                  </span></a
               >
               <a href="/user/editcomplaint/<%= item._id %>" class="btn btn-info"
-                >Edit</a
+                ><span class="material-symbols-outlined fs-6">
+                  edit
+                  </span></a
               >
-              <a
-                href="/user/deletecomplaint/<%= item._id %>"
-                class="btn btn-danger"
-                >Delete</a
-              >
+              
               <a
                 href="/user/printcomplaint/<%=item._id%>"
                 class="btn btn-danger"
-                >Print</a
+                ><span class="material-symbols-outlined fs-6">
+                  print
+                  </span></a
               >
               <!-- WhatsApp Share Button -->
               <a
                 href="https://wa.me/?text=Job No: <%= item.jobNumber %>%0AName: <%= item.name %>%0ANumber: <%= item.phone %>%0AProblem: <%= item.problem %>"
                 class="btn btn-success"
                 target="_blank"
-                >Share on WhatsApp</a>
+                ><span class="material-symbols-outlined fs-6">
+                  share
+                  </span></a>
+            </td>
+             <!-- Running Status -->
+             <td>
+              <% if (item.status === 'process' || item.status === 'RWR' ||item.status === 'OK' ) { %>
+                <%= item.status %>
+              <% } else { %>
+                N/A
+              <% } %>
+            </td>
+            <!-- Delivered Status -->
+            <td>
+              <% if (item.status === 'Delivered' || item.status === 'RWR + Delivered') { %>
+                <%= item.status %>
+              <% } else { %>
+                N/A
+              <% } %>
             </td>
             <td><%= new Date(item.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true }) %></td>
+          
+
+
+          
+          
           </tr>
           <% }) %>
         </tbody>
@@ -130,6 +160,10 @@
             <div class="form-group">
               <label>Problem</label>
               <input type="text" name="problem" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label>Remark</label>
+              <input type="text" name="remark" class="form-control" required />
             </div>
             <div class="form-group">
               <label for="">Engineer</label>

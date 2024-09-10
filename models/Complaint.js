@@ -48,6 +48,10 @@ const ComplaintSchema = new mongoose.Schema({
         type:String,
         
     },
+    mode:{
+        type:String,
+        
+    },
     
     estimated:{
         type: Number, 
@@ -69,7 +73,8 @@ const ComplaintSchema = new mongoose.Schema({
       },
       deliveredAt:{
         type:Date,
-      }
+      },
+      user: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
  
     
 },{timestamps:true})

@@ -4,6 +4,7 @@ const AdminController = require('../controllers/admin/AdminController')
 const UserController = require('../controllers/UserController')
 const EngineerController = require('../controllers/EngineerController')
 const ParteditController = require('../controllers/ParteditController')
+const checkUserAuth = require('../middleware/auth')
 const route  = express.Router()
 
 
@@ -14,6 +15,7 @@ route.get('/login',FrontController.login)
 // User Controller
  route.post('/userinsert',FrontController.userInsert)
  route.post('/verifylogin',FrontController.verifylogin)
+ route.get('/logout',FrontController.logout)
 
 // Admin Controller
 route.get('/admin/dashboard',AdminController.dashboard)
@@ -21,25 +23,32 @@ route.get('/admin/dashboard',AdminController.dashboard)
 
 
 // User Controller
-route.get('/user/dashboard',UserController.dashboard)
-route.get('/user/addcomplaint',UserController.addcomplaint)
-route.post('/user/insertcomplaint',UserController.insertcomplaint)
-route.get('/user/viewcomplaint/:id',UserController.viewcomaplint)
-route.get('/user/editcomplaint/:id',UserController.editcomplaint)
-route.post('/user/updatecomplaint/:id',UserController.updatecomplaint)
-route.get('/user/printcomplaint/:id',UserController.printcomplaint)
-route.get('/user/deletecomplaint/:id',UserController.deletecomplaint)
-route.get('/user/delivered',UserController.delivery)
-route.get('/user/ok',UserController.ok)
-route.get('/user/okedit/:id',UserController.okedit)
+route.get('/user/dashboard',checkUserAuth,UserController.dashboard)
+route.get('/user/addcomplaint',checkUserAuth,UserController.addcomplaint)
+route.post('/user/insertcomplaint',checkUserAuth,UserController.insertcomplaint)
+route.get('/user/viewcomplaint/:id',checkUserAuth,UserController.viewcomaplint)
+route.get('/user/editcomplaint/:id',checkUserAuth,UserController.editcomplaint)
+route.post('/user/updatecomplaint/:id',checkUserAuth,UserController.updatecomplaint)
+route.get('/user/printcomplaint/:id',checkUserAuth,UserController.printcomplaint)
+// route.get('/user/deletecomplaint/:id',UserController.deletecomplaint)
+route.get('/user/delivered',checkUserAuth,UserController.delivery)
+route.get('/user/ok',checkUserAuth,UserController.ok)
+route.get('/user/okedit/:id',checkUserAuth,UserController.okedit)
 route.post('/user/okupdate/:id',UserController.okupdate)
+route.get('/user/rwredit/:id',checkUserAuth,UserController.rwredit)
+route.post('/user/rwrupdate/:id',UserController.rwrupdate)
+route.get('/user/rwrdelivered',checkUserAuth,UserController.rwrdelivered)
+route.get('/user/rwr',checkUserAuth,UserController.rwr)
+route.get('/user/process',checkUserAuth,UserController.process)
+route.get('/user/todaycomplaint',checkUserAuth,UserController.todaycomplaints)
+route.get("/user/reportpage",checkUserAuth, UserController.reportsPage);
+route.post("/user/reports/month-wise",checkUserAuth, UserController.monthWiseReport);
+route.post("/user/reports/date-wise",checkUserAuth, UserController.dateWiseReport);
 
-route.get('/user/rwr',UserController.rwr)
-route.get('/user/process',UserController.process)
 
-route.get('/user/todaycomplaint',UserController.todaycomplaints)
-route.get('/user/partdisplay',ParteditController.partdisplay)
-route.get('/user/editpart/:id',ParteditController.partedit)
+// Part COntroller
+route.get('/user/partdisplay',checkUserAuth,ParteditController.partdisplay)
+route.get('/user/editpart/:id',checkUserAuth,ParteditController.partedit)
 route.post('/user/updatepart/:id',ParteditController.updatepart)
 
 

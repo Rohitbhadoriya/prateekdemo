@@ -1,11 +1,10 @@
 <%- include('./header.ejs') %>
 <%- include('./sidebar.ejs') %>
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) --> 
     <div class="card">
         <div class="card-header">
-          <h3 class="card-title">RWR Complaint</h3>
+          <h3 class="card-title">RWR Delivered Complaint</h3>
          
         </div>
         
@@ -17,31 +16,29 @@
           <thead>
             
           <tr>
+            <th>Job Number</th>
             <th>Name</th>
             <th>Email</th>
             <th>Problem</th>
             <th>Estimated</th>
             <th>Status</th>
-            <th>Action</th>
+            <th>Engineer</th>
+            
             
             
           </tr>
           </thead>
           <tbody>
-            <% r.forEach(data => { %>
+            <% rd.forEach(data => { %>
               <tr>
+                <td><%= data.jobNumber %></td>
                 <td><%= data.name %></td>
                 <td><%= data.email %></td>
                 <td><%= data.problem %></td>
                 <td><%= data.estimated %></td>
                 <td><%= data.status %></td>
-               <td>
-                <a
-                href="/user/rwredit/<%= data._id %>"
-                class="btn btn-success"
-                >Edit</a
-              >
-               </td>
+                <td><%= data.engineer %></td>
+               
                
               </tr>
               <% }); %>
@@ -56,7 +53,4 @@
       <!-- /.modal -->
       <!-- /.card -->
     </div>
-
-
-
 <%- include('./footer.ejs') %>

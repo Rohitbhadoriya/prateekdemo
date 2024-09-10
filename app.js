@@ -6,7 +6,13 @@ const web  = require('./routes/web')
 const connectdb = require('./db/connectdb')
 const session  = require('express-session')
 const flash  = require('connect-flash')
+const fileUpload = require("express-fileupload");
+const cookieParser = require('cookie-parser')
 
+// for file upload
+app.use(fileUpload({ useTempFiles: true }));
+// for session
+app.use(cookieParser())
 
 
 
