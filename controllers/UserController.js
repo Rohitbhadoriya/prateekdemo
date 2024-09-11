@@ -86,11 +86,11 @@ class UserController {
   static viewcomaplint = async (req, res) => {
     try {
       const {  _id: userId, name, image } = req.data1
-      const complaint = await ComplaintModel.findOne({ _id: req.params.id, user: userId });  // Fetch complaint only if it belongs to the user
-    if (!complaint) {
+      const data = await ComplaintModel.findOne({ _id: req.params.id, user: userId });  // Fetch complaint only if it belongs to the user
+    if (!data) {
       return res.status(404).send('Complaint not found');
     }
-      res.render("user/viewcomplaint", { d: data, nm: name, img: image });
+      res.render("user/viewcomplaint", { d:data, nm: name, img: image });
     } catch (error) {
       console.log(error);
     }
