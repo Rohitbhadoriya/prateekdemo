@@ -49,11 +49,19 @@
                   <td><%= item.engineer %></td>
                   <td><%= item.estimated %></td>
                   <td>
-                    <a href="/user/viewcomplaint/<%= item._id %>" class="btn btn-success">View</a>
-                    <a href="/user/editcomplaint/<%= item._id %>" class="btn btn-info">Edit</a>
-                    <a href="/user/deletecomplaint/<%= item._id %>" class="btn btn-danger">Delete</a>
+                    <a href="/user/viewcomplaint/<%= item._id %>" class="btn btn-success"><span class="material-symbols-outlined fs-6">
+                      visibility
+                      </span></a>
+                    <a href="/user/editcomplaint/<%= item._id %>" class="btn btn-info"><span class="material-symbols-outlined fs-6">
+                      edit
+                      </span></a>
+                    <a href="/user/deletecomplaint/<%= item._id %>" class="btn btn-danger"><span class="material-symbols-outlined fs-6">
+                      remove
+                      </span></a>
                     
-                    <a href="/user/printcomplaint/<%= item._id %>" class="btn btn-danger">Print</a>
+                    <a href="/user/printcomplaint/<%= item._id %>" class="btn btn-danger"><span class="material-symbols-outlined fs-6">
+                      print
+                      </span></a>
 
 
 

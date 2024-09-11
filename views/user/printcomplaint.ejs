@@ -1,59 +1,47 @@
 <%- include('.//..//header1.ejs') %>
 
-    <div class="bill" id="bill">
-        <center>
-            <h1>PRATEEK MOBILE</h1>
-        </center>
+<div class="bill" id="bill">
+    <center>
+        <h1>PRATEEK MOBILE</h1>
+    </center>
     <center>
         <h2>Job Sheet</h2>
     </center>
     <center>
         <p>9755669222</p>
-        <p>2nd Floor,Rajeev Plaza, Jayendrganj Gwalior</p>
+        <p>2nd Floor, Rajeev Plaza, Jayendrganj Gwalior</p>
     </center>
-        <hr>  
-        <!-- Date & Time:&nbsp;<span id="date-time"></span>   -->
-        Date & Time:&nbsp;<span id="date-time"><%= new Date(d.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true }) %></span>  
-        <br>
-        <span>Job No:</span> &nbsp; &nbsp; &nbsp; <span><%= d.jobNumber %></span> 
-       <br>
-        <span>Name:</span> &nbsp;<span><%= d.name %></span>
-        <br>
-        <span>Phone:</span> &nbsp; &nbsp;<span><%= d.phone %></span>
-        <br>
-        <span>Device:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span><%= d.device %></span>
-        <br>
-        <span>Model:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span><%= d.model %></span>
-        <br>
-        <span>Brand:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span><%= d.brand %></span>
-        <br>
-        <span>Problem:</span>&nbsp; &nbsp;<span><%= d.problem %></span>
-        <br>
-        <span>Estimated:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span><%= d.estimated %></span>
-  <hr>
-  <span>Terms & Condition</span>
-  <p>1. Estimated may be changed after repairing</p>
-  <p>2. No Responsebility of data lost</p>
-  <p>3. No Responsebility Unclamied repaied devices after <b>30 Days</b></p>
-  <p>4. Warranty on screen replacement is only for touch related issues,and other issues like discoloration or lining on screen will be not be covered  under warranty.</p>
-  <p>5. All subject to Gwalior jurisdietion</p>
-  
-        <!-- <p>ID:<%= d._id %></p>
-        <hr>
-        <p>Name:<%= d.name %></p>
-        <hr>
-        <p>email:<%= d.email %></p>
-        <hr>
-        <p>Model:<%= d.model %></p>
-        <hr>
-        <p>Probelm:<%= d.problem %></p>
-        <hr>
-        <p>Estimated:<%= d.estimated %></p>
-        <hr> -->
+    <hr>  
+    Date & Time:&nbsp;<span id="date-time"><%= new Date(d.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', hour12: true }) %></span>  
+    <br>
+    <span>Job No:</span> &nbsp; &nbsp; &nbsp; <span id="job-number"><%= d.jobNumber %></span> 
+    <br>
+    <span>Name:</span> &nbsp;<span id="customer-name"><%= d.name %></span>
+    <br>
+    <span>Phone:</span> &nbsp; &nbsp;<span id="customer-phone"><%= d.phone %></span>
+    <br>
+    <span>Device:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="device"><%= d.device %></span>
+    <br>
+    <span>Model:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="model"><%= d.model %></span>
+    <br>
+    <span>Brand:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="brand"><%= d.brand %></span>
+    <br>
+    <span>Problem:</span>&nbsp; &nbsp;<span id="problem"><%= d.problem %></span>
+    <br>
+    <span>Estimated:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="estimated"><%= d.estimated %></span>
+    <hr>
+    <span>Terms & Conditions</span>
+    <p>1. Estimate may change after repair</p>
+    <p>2. No responsibility for data loss</p>
+    <p>3. No responsibility for unclaimed repaired devices after <b>30 Days</b></p>
+    <p>4. Warranty on screen replacement is only for touch-related issues. Other issues like discoloration or screen lines will not be covered under warranty.</p>
+    <p>5. All subject to Gwalior jurisdiction</p>
 
-
-    </div>
-   
+</div>
+   <!-- WhatsApp Button -->
+   <a id="whatsapp-link" href="#" class="btn btn-success" target="_blank">
+    <span class="material-symbols-outlined fs-6">share</span> Send Bill via WhatsApp
+</a> 
 
 <button onclick="printBill()">Print Bill</button>
-
+<%- include('..//footer1.ejs')%>

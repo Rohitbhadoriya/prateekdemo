@@ -171,14 +171,14 @@ class UserController {
       console.log(error);
     }
   };
-  // static deletecomplaint = async (req, res) => {
-  //   try {
-  //     const data = await ComplaintModel.findByIdAndDelete(req.params.id);
-  //     res.redirect("/user/addcomplaint");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  static deletecomplaint = async (req, res) => {
+    try {
+      const data = await ComplaintModel.findByIdAndDelete(req.params.id);
+      res.redirect("/user/addcomplaint");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   static delivery = async (req, res) => {
     try {
       const {_id: userId, name, image } = req.data1
