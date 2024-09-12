@@ -49,18 +49,20 @@ class FrontController {
       })
       // console.log(imageupload);
 
-      const { name, email, password, cpassword } = req.body;
+      const { name, email, password,address,phone,cpassword } = req.body;
       const user = await UserModel.findOne({ email: email });
       // console.log(user)
       if (user) {
         res.redirect("/register");
       } else {
-        if (name && email && password && cpassword) {
+        if (name && email && password && cpassword && address && phone) {
           if (password && cpassword) {
             const hashpassword = await bcrypt.hash(password, 10)
             const r = new UserModel({
               name: name,
               email: email,
+              address:address,
+              phone:phone,
               password: hashpassword,
               image: {
                 public_id: imageupload.public_id,
@@ -151,6 +153,11 @@ class FrontController {
       console.log(error);
     }
   };
+
+
+  
+
+
   static logout = async (req, res) => {
     try {
       res.clearCookie("token");

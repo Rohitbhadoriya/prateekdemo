@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 const moment = require("moment");
 // Excel
 const ExcelJS = require("exceljs");
+const UserModel = require("../models/User");
 
 class UserController {
   static dashboard = async (req, res) => {
@@ -95,14 +96,37 @@ class UserController {
       console.log(error);
     }
   };
+  // static printcomplaint = async (req, res) => {
+  //   try {
+   
+  //     const data = await ComplaintModel.findById(req.params.id);
+  //     res.render("user/printcomplaint", { d: data,});
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   static printcomplaint = async (req, res) => {
     try {
+      // First, fetch the complaint data
       const data = await ComplaintModel.findById(req.params.id);
-      res.render("user/printcomplaint", { d: data });
+  
+      // Check if data is found
+      if (!data) {
+        return res.status(404).send('Complaint not found');
+      }
+  
+      // Now, fetch the user data using data.user
+      const user = await UserModel.findById(data.user);
+  
+      // Render the view with both complaint and user data
+      res.render("user/printcomplaint", { d: data, us: user });
     } catch (error) {
       console.log(error);
+      res.status(500).send('Server Error');
     }
   };
+  
+
   static editcomplaint = async (req, res) => {
     try {
       // console.log(req.params.id)
