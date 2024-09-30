@@ -24,10 +24,11 @@
     <br>
     <span>Device:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="device"><%= d.device %></span>
     <br>
-    <span>Model:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="model"><%= d.model %></span>
-    <br>
     <span>Brand:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="brand"><%= d.brand %></span>
     <br>
+    <span>Model:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="model"><%= d.model %></span>
+    <br>
+    
     <span>Problem:</span>&nbsp; &nbsp;<span id="problem"><%= d.problem %></span>
     <br>
     <span>Estimated:</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span id="estimated"><%= d.estimated %></span>
@@ -43,9 +44,11 @@
 
 </div>
    <!-- WhatsApp Button -->
-   <a id="whatsapp-link" href="#" class="btn btn-success" target="_blank">
+   <!-- <a id="whatsapp-link" href="#" class="btn btn-success" target="_blank">
     <span class="material-symbols-outlined fs-6">share</span> Send Bill via WhatsApp
-</a> 
+</a>  -->
+<button onclick="sendWhatsAppBill()">Send to WhatsApp</button>
+
 
 <button onclick="printBill()">Print Bill</button>
 <%- include('..//footer1.ejs')%>

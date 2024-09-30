@@ -19,7 +19,7 @@ h1{
         font-size: 15px;
         font-weight: bold;
         line-height: normal;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         text-align: justify;
     
     }
@@ -29,9 +29,9 @@ h1{
        text-align: justify;
     }
     p{
-        font-size: 15px;
+        font-size: 13px;
         font-weight: bolder;
-        margin: 10px;
+        margin: 5px;
     }
     button{
         display: hidden;
