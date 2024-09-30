@@ -11,15 +11,15 @@ h1{
 @media print {
     h1 {
         color: black;
-        font-size: 18px;
+        font-size: 15px;
         font-weight: bold;
     }
     span {
         color: black;
-        font-size: 15px;
+        font-size: 12px;
         font-weight: bold;
         line-height: normal;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         text-align: justify;
     
     }
