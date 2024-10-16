@@ -8,6 +8,7 @@ const moment = require("moment");
 const ExcelJS = require("exceljs");
 const UserModel = require("../models/User");
 
+
 class UserController {
   static dashboard = async (req, res) => {
     try {
@@ -15,6 +16,7 @@ class UserController {
       const { _id: userId } = req.data1;
       const startOfToday = moment().startOf("day").toDate();
       const endOfToday = moment().endOf("day").toDate();
+   const process = await ComplaintModel.find({ user: userId })
       // Fetch complaints created today
       const todaysComplaints = await ComplaintModel.find({
         createdAt: { $gte: startOfToday, $lte: endOfToday },
@@ -26,7 +28,7 @@ class UserController {
         return sum + (complaint.estimated || 0); // Add estimated field, default to 0 if not present
       }, 0);
 
-      res.render("user/dashboard", { todaysComplaints, totalEstimated, nm: name, img: image });
+      res.render("user/dashboard", { todaysComplaints, totalEstimated, process, nm: name, img: image });
     } catch (error) {
       console.log(error);
     }
@@ -79,6 +81,17 @@ class UserController {
         user: userId,
       });
       await r.save();
+      // WhatsApp API request code
+        const axios = require('axios'); 
+        const apiToken = 'ieZoEJPjBE3qwHAGYOdkcGXAURQjhi47cf30jwVj'; // Use your own token
+        const phoneNumberId = '375093372350776'; // Use your own phone number ID
+        const templateId = '109221'; // Use your own template ID
+
+        // Create the URL with the required variables
+        const url = `https://app.whatsmarketing.in/api/v1/whatsapp/send/template?apiToken=${apiToken}&phone_number_id=${phoneNumberId}&template_id=${templateId}&templateVariable-address-1=${userName}&templateVariable-jobno-3=${jobNumber}&templateVariable-name-4=${name}&templateVariable-customerphone-5=${phone}&templateVariable-device-6=${device}&templateVariable-model-7=${model}&templateVariable-brand-8=${brand}&templateVariable-problem-9=${problem}&templateVariable-estimated-10=${estimated}&phone_number=${phone}`;
+
+        // Send the WhatsApp message using axios
+        await axios.get(url);
       res.redirect("/user/addcomplaint");
     } catch (error) {
       console.log(error);
@@ -115,7 +128,7 @@ class UserController {
         return res.status(404).send('Complaint not found');
       }
   
-      // Now, fetch the user data using data.user
+      // Now, fetch the user data using
       const user = await UserModel.findById(data.user);
   
       // Render the view with both complaint and user data
@@ -440,6 +453,7 @@ class UserController {
           status: complaint.status,
           createdAt: moment(complaint.createdAt).format('DD-MM-YYYY'),
           estimated: complaint.estimated || 'N/A',
+        
         });
       });
 

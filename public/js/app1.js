@@ -73,3 +73,55 @@ document.getElementById('body').innerHTML = bill
 
 
 
+
+// function sendWhatsAppBill() {
+//     const data = {
+//         jobNumber: document.getElementById('job-number').innerText,
+//         customerName: document.getElementById('customer-name').innerText,
+//         customerPhone: document.getElementById('customer-phone').innerText,
+//         device: document.getElementById('device').innerText,
+//         brand: document.getElementById('brand').innerText,
+//         model: document.getElementById('model').innerText,
+//         problem: document.getElementById('problem').innerText,
+//         estimated: document.getElementById('estimated').innerText,
+//         remark: document.getElementById('remark').innerText,
+//         dateTime: document.getElementById('date-time').innerText
+//     };
+
+//     console.log('Sending job sheet data to backend:', data); // Add logging for debugging
+
+//     // Send data to your server via fetch POST request
+//     fetch('/send-whatsapp', { 
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(data),
+//     })
+//     .then(response => {
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+//         return response.json();
+//     })
+//     .then(data => {
+//         console.log('Response from backend:', data);
+//         if (data.success) {
+//             alert('Job sheet sent via WhatsApp successfully!');
+//         } else {
+//             alert('Failed to send job sheet. Please try again.');
+//         }
+//     })
+//     .catch(error => {
+//         console.error('Error occurred while sending WhatsApp message:', error);
+//         alert('There was an error. Please check the console for more details.');
+//     });
+// }
+
+
+
+
+
+
+
+
