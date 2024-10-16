@@ -8,19 +8,19 @@ const moment = require("moment");
 const ExcelJS = require("exceljs");
 const UserModel = require("../models/User");
 
-
 class UserController {
   static dashboard = async (req, res) => {
     try {
-      const { name, image } = req.data1
+      const { name, image } = req.data1;
       const { _id: userId } = req.data1;
       const startOfToday = moment().startOf("day").toDate();
       const endOfToday = moment().endOf("day").toDate();
-   const process = await ComplaintModel.find({ user: userId })
+      const data = await ComplaintModel.find({ user: userId });
+      const process = data.filter((p) => p.status === "process");
       // Fetch complaints created today
       const todaysComplaints = await ComplaintModel.find({
         createdAt: { $gte: startOfToday, $lte: endOfToday },
-        user: userId 
+        user: userId,
       });
 
       // Calculate the total estimated value
@@ -28,20 +28,31 @@ class UserController {
         return sum + (complaint.estimated || 0); // Add estimated field, default to 0 if not present
       }, 0);
 
-      res.render("user/dashboard", { todaysComplaints, totalEstimated, process, nm: name, img: image });
+      res.render("user/dashboard", {
+        todaysComplaints,
+        totalEstimated,
+        process,
+        nm: name,
+        img: image,
+      });
     } catch (error) {
       console.log(error);
     }
   };
   static addcomplaint = async (req, res) => {
     try {
-      const { _id: userId, name, image } = req.data1
+      const { _id: userId, name, image } = req.data1;
       const data = await ComplaintModel.find({ user: userId });
       const engineer = await EngineerModel.find();
 
       // console.log(data);
 
-      res.render("user/addcomplaint", { d: data, er: engineer, nm: name, img: image });
+      res.render("user/addcomplaint", {
+        d: data,
+        er: engineer,
+        nm: name,
+        img: image,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -82,16 +93,16 @@ class UserController {
       });
       await r.save();
       // WhatsApp API request code
-        const axios = require('axios'); 
-        const apiToken = 'ieZoEJPjBE3qwHAGYOdkcGXAURQjhi47cf30jwVj'; // Use your own token
-        const phoneNumberId = '375093372350776'; // Use your own phone number ID
-        const templateId = '109221'; // Use your own template ID
+      const axios = require("axios");
+      const apiToken = "ieZoEJPjBE3qwHAGYOdkcGXAURQjhi47cf30jwVj"; // Use your own token
+      const phoneNumberId = "375093372350776"; // Use your own phone number ID
+      const templateId = "109221"; // Use your own template ID
 
-        // Create the URL with the required variables
-        const url = `https://app.whatsmarketing.in/api/v1/whatsapp/send/template?apiToken=${apiToken}&phone_number_id=${phoneNumberId}&template_id=${templateId}&templateVariable-address-1=${userName}&templateVariable-jobno-3=${jobNumber}&templateVariable-name-4=${name}&templateVariable-customerphone-5=${phone}&templateVariable-device-6=${device}&templateVariable-model-7=${model}&templateVariable-brand-8=${brand}&templateVariable-problem-9=${problem}&templateVariable-estimated-10=${estimated}&phone_number=${phone}`;
+      // Create the URL with the required variables
+      const url = `https://app.whatsmarketing.in/api/v1/whatsapp/send/template?apiToken=${apiToken}&phone_number_id=${phoneNumberId}&template_id=${templateId}&templateVariable-address-1=${userName}&templateVariable-jobno-3=${jobNumber}&templateVariable-name-4=${name}&templateVariable-customerphone-5=${phone}&templateVariable-device-6=${device}&templateVariable-model-7=${model}&templateVariable-brand-8=${brand}&templateVariable-problem-9=${problem}&templateVariable-estimated-10=${estimated}&phone_number=${phone}`;
 
-        // Send the WhatsApp message using axios
-        await axios.get(url);
+      // Send the WhatsApp message using axios
+      await axios.get(url);
       res.redirect("/user/addcomplaint");
     } catch (error) {
       console.log(error);
@@ -99,19 +110,22 @@ class UserController {
   };
   static viewcomaplint = async (req, res) => {
     try {
-      const {  _id: userId, name, image } = req.data1
-      const data = await ComplaintModel.findOne({ _id: req.params.id, user: userId });  // Fetch complaint only if it belongs to the user
-    if (!data) {
-      return res.status(404).send('Complaint not found');
-    }
-      res.render("user/viewcomplaint", { d:data, nm: name, img: image });
+      const { _id: userId, name, image } = req.data1;
+      const data = await ComplaintModel.findOne({
+        _id: req.params.id,
+        user: userId,
+      }); // Fetch complaint only if it belongs to the user
+      if (!data) {
+        return res.status(404).send("Complaint not found");
+      }
+      res.render("user/viewcomplaint", { d: data, nm: name, img: image });
     } catch (error) {
       console.log(error);
     }
   };
   // static printcomplaint = async (req, res) => {
   //   try {
-   
+
   //     const data = await ComplaintModel.findById(req.params.id);
   //     res.render("user/printcomplaint", { d: data,});
   //   } catch (error) {
@@ -122,36 +136,44 @@ class UserController {
     try {
       // First, fetch the complaint data
       const data = await ComplaintModel.findById(req.params.id);
-  
+
       // Check if data is found
       if (!data) {
-        return res.status(404).send('Complaint not found');
+        return res.status(404).send("Complaint not found");
       }
-  
+
       // Now, fetch the user data using
       const user = await UserModel.findById(data.user);
-  
+
       // Render the view with both complaint and user data
       res.render("user/printcomplaint", { d: data, us: user });
     } catch (error) {
       console.log(error);
-      res.status(500).send('Server Error');
+      res.status(500).send("Server Error");
     }
   };
-  
 
   static editcomplaint = async (req, res) => {
     try {
       // console.log(req.params.id)
-      const { name, image } = req.data1
+      const { name, image } = req.data1;
       const data = await ComplaintModel.findById(req.params.id);
       // Prevent editing if complaint is delivered
       if (data.status === "Delivered" || data.status === "RWR + Delivered") {
-        return res.status(400).send("This complaint cannot be edited as it has already been delivered.");
+        return res
+          .status(400)
+          .send(
+            "This complaint cannot be edited as it has already been delivered."
+          );
       }
 
       const engineer = await EngineerModel.find();
-      res.render("user/editcomplaint", { d: data, er: engineer, nm: name, img: image });
+      res.render("user/editcomplaint", {
+        d: data,
+        er: engineer,
+        nm: name,
+        img: image,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -161,8 +183,15 @@ class UserController {
       const id = req.params.id;
       const existingComplaint = await ComplaintModel.findById(id);
       // Prevent updating if complaint is delivered
-      if (existingComplaint.status === "Delivered" || existingComplaint.status === "RWR + Delivered") {
-        return res.status(400).send("This complaint cannot be updated as it has already been delivered & RWR + Delivered.");
+      if (
+        existingComplaint.status === "Delivered" ||
+        existingComplaint.status === "RWR + Delivered"
+      ) {
+        return res
+          .status(400)
+          .send(
+            "This complaint cannot be updated as it has already been delivered & RWR + Delivered."
+          );
       }
 
       const {
@@ -218,7 +247,7 @@ class UserController {
   };
   static delivery = async (req, res) => {
     try {
-      const {_id: userId, name, image } = req.data1
+      const { _id: userId, name, image } = req.data1;
       const data = await ComplaintModel.find({ user: userId });
       console.log(data);
       const delivered = data.filter((de) => de.status === "Delivered");
@@ -232,7 +261,7 @@ class UserController {
 
   static ok = async (req, res) => {
     try {
-      const { _id: userId, name, image } = req.data1
+      const { _id: userId, name, image } = req.data1;
       const data = await ComplaintModel.find({ user: userId });
       console.log(data);
       const ok = data.filter((k) => k.status === "OK");
@@ -244,22 +273,21 @@ class UserController {
   };
   static okedit = async (req, res) => {
     try {
-      const { name, image } = req.data1
-      console.log(req.params.id)
+      const { name, image } = req.data1;
+      console.log(req.params.id);
       const data = await ComplaintModel.findById(req.params.id);
-      res.render("user/okedit", { data: data, nm: name, img: image })
-
+      res.render("user/okedit", { data: data, nm: name, img: image });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   static okupdate = async (req, res) => {
     try {
       // const{name,image} = req.data1
       const { status } = req.body;
-      const id = req.params.id
+      const id = req.params.id;
       const data = {
-        status: status
+        status: status,
       };
       if (status === "Delivered") {
         data.deliveredAt = new Date(); // Set current date and time
@@ -270,12 +298,12 @@ class UserController {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   static rwr = async (req, res) => {
     try {
-      const {_id: userId, name, image } = req.data1
-      const data = await ComplaintModel.find({user: userId });
+      const { _id: userId, name, image } = req.data1;
+      const data = await ComplaintModel.find({ user: userId });
       // console.log(data);
       const rw = data.filter((r) => r.status === "RWR");
       res.render("user/rwr", { r: rw, nm: name, img: image });
@@ -285,8 +313,8 @@ class UserController {
   };
   static rwrdelivered = async (req, res) => {
     try {
-      const {_id: userId, name, image } = req.data1
-      const data = await ComplaintModel.find({user:userId});
+      const { _id: userId, name, image } = req.data1;
+      const data = await ComplaintModel.find({ user: userId });
       // console.log(data);
       const rwr = data.filter((rd) => rd.status === "RWR + Delivered");
       res.render("user/rwrdelivered", { rd: rwr, nm: name, img: image });
@@ -298,22 +326,20 @@ class UserController {
   // RWR EDIt Section Start
   static rwredit = async (req, res) => {
     try {
-      const {  name, image } = req.data1
-      console.log(req.params.id)
+      const { name, image } = req.data1;
+      console.log(req.params.id);
       const data = await ComplaintModel.findById(req.params.id);
-      res.render("user/rwredit", { data: data, nm: name, img: image })
-
+      res.render("user/rwredit", { data: data, nm: name, img: image });
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   static rwrupdate = async (req, res) => {
     try {
-
       const { status } = req.body;
-      const id = req.params.id
+      const id = req.params.id;
       const data = {
-        status: status
+        status: status,
       };
       if (status === "RWR + Delivered") {
         data.deliveredAt = new Date(); // Set current date and time
@@ -324,34 +350,43 @@ class UserController {
     } catch (error) {
       console.log(error);
     }
-  }
-
+  };
 
   // RWR Edit Section end
   static process = async (req, res) => {
     try {
-      const {_id: userId, name, image } = req.data1
-      const data = await ComplaintModel.find({user: userId,});
+      const { _id: userId, name, image } = req.data1;
+      const data = await ComplaintModel.find({ user: userId });
       // console.log(data);
       const process = data.filter((pr) => pr.status === "process");
-      res.render("user/process", { pr: process, d: data, nm: name, img: image });
+      res.render("user/process", {
+        pr: process,
+        d: data,
+        nm: name,
+        img: image,
+      });
     } catch (error) {
       console.log(error);
     }
   };
   static todaycomplaints = async (req, res) => {
     try {
-      const { name, image } = req.data1
+      const { name, image } = req.data1;
       const { _id: userId } = req.data1;
       const engineer = await EngineerModel.find();
       const startOfToday = moment().startOf("day").toDate();
       const endOfToday = moment().endOf("day").toDate();
       const data = await ComplaintModel.find({
         createdAt: { $gte: startOfToday, $lte: endOfToday },
-        user: userId 
+        user: userId,
       });
 
-      res.render("user/todaycomplaint", { d: data, er: engineer, nm: name, img: image });
+      res.render("user/todaycomplaint", {
+        d: data,
+        er: engineer,
+        nm: name,
+        img: image,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -368,12 +403,20 @@ class UserController {
     try {
       const { month, year } = req.body;
       const { _id: userId } = req.data1;
-      const startDate = moment().year(year).month(month - 1).startOf('month').toDate();
-      const endDate = moment().year(year).month(month - 1).endOf('month').toDate();
+      const startDate = moment()
+        .year(year)
+        .month(month - 1)
+        .startOf("month")
+        .toDate();
+      const endDate = moment()
+        .year(year)
+        .month(month - 1)
+        .endOf("month")
+        .toDate();
 
       const complaints = await ComplaintModel.find({
         createdAt: { $gte: startDate, $lte: endDate },
-        user: userId  // Filter by user
+        user: userId, // Filter by user
       });
 
       const workbook = new ExcelJS.Workbook();
@@ -381,18 +424,18 @@ class UserController {
 
       // Add column headers
       worksheet.columns = [
-        { header: 'Job Number', key: 'jobNumber', width: 15 },
-        { header: 'Name', key: 'name', width: 30 },
-        { header: 'Device', key: 'device', width: 20 },
-        { header: 'Problem', key: 'problem', width: 40 },
-        { header: 'Engineer', key: 'engineer', width: 30 },
-        { header: 'Status', key: 'status', width: 15 },
-        { header: 'Created At', key: 'createdAt', width: 20 },
-        { header: 'Estimated', key: 'estimated', width: 15 },
+        { header: "Job Number", key: "jobNumber", width: 15 },
+        { header: "Name", key: "name", width: 30 },
+        { header: "Device", key: "device", width: 20 },
+        { header: "Problem", key: "problem", width: 40 },
+        { header: "Engineer", key: "engineer", width: 30 },
+        { header: "Status", key: "status", width: 15 },
+        { header: "Created At", key: "createdAt", width: 20 },
+        { header: "Estimated", key: "estimated", width: 15 },
       ];
 
       // Add data
-      complaints.forEach(complaint => {
+      complaints.forEach((complaint) => {
         worksheet.addRow({
           jobNumber: complaint.jobNumber,
           name: complaint.name,
@@ -400,15 +443,21 @@ class UserController {
           problem: complaint.problem,
           engineer: complaint.engineer,
           status: complaint.status,
-          createdAt: moment(complaint.createdAt).format('DD-MM-YYYY'),
-          estimated: complaint.estimated || 'N/A',
+          createdAt: moment(complaint.createdAt).format("DD-MM-YYYY"),
+          estimated: complaint.estimated || "N/A",
         });
       });
 
       // Write to buffer and download the file
       const buffer = await workbook.xlsx.writeBuffer();
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', `attachment; filename=month-wise-report-${month}-${year}.xlsx`);
+      res.setHeader(
+        "Content-Type",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      );
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename=month-wise-report-${month}-${year}.xlsx`
+      );
       res.send(buffer);
     } catch (error) {
       console.log(error);
@@ -420,30 +469,32 @@ class UserController {
   static dateWiseReport = async (req, res) => {
     try {
       const { startDate, endDate } = req.body;
-      const start = moment(startDate).startOf('day').toDate();
-      const end = moment(endDate).endOf('day').toDate();
+      const start = moment(startDate).startOf("day").toDate();
+      const end = moment(endDate).endOf("day").toDate();
 
       const complaints = await ComplaintModel.find({
         createdAt: { $gte: start, $lte: end },
       });
 
       const workbook = new ExcelJS.Workbook();
-      const worksheet = workbook.addWorksheet(`Complaints ${startDate} to ${endDate}`);
+      const worksheet = workbook.addWorksheet(
+        `Complaints ${startDate} to ${endDate}`
+      );
 
       // Add column headers
       worksheet.columns = [
-        { header: 'Job Number', key: 'jobNumber', width: 15 },
-        { header: 'Name', key: 'name', width: 30 },
-        { header: 'Device', key: 'device', width: 20 },
-        { header: 'Problem', key: 'problem', width: 40 },
-        { header: 'Engineer', key: 'engineer', width: 30 },
-        { header: 'Status', key: 'status', width: 15 },
-        { header: 'Created At', key: 'createdAt', width: 20 },
-        { header: 'Estimated', key: 'estimated', width: 15 },
+        { header: "Job Number", key: "jobNumber", width: 15 },
+        { header: "Name", key: "name", width: 30 },
+        { header: "Device", key: "device", width: 20 },
+        { header: "Problem", key: "problem", width: 40 },
+        { header: "Engineer", key: "engineer", width: 30 },
+        { header: "Status", key: "status", width: 15 },
+        { header: "Created At", key: "createdAt", width: 20 },
+        { header: "Estimated", key: "estimated", width: 15 },
       ];
 
       // Add data
-      complaints.forEach(complaint => {
+      complaints.forEach((complaint) => {
         worksheet.addRow({
           jobNumber: complaint.jobNumber,
           name: complaint.name,
@@ -451,16 +502,21 @@ class UserController {
           problem: complaint.problem,
           engineer: complaint.engineer,
           status: complaint.status,
-          createdAt: moment(complaint.createdAt).format('DD-MM-YYYY'),
-          estimated: complaint.estimated || 'N/A',
-        
+          createdAt: moment(complaint.createdAt).format("DD-MM-YYYY"),
+          estimated: complaint.estimated || "N/A",
         });
       });
 
       // Write to buffer and download the file
       const buffer = await workbook.xlsx.writeBuffer();
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', `attachment; filename=date-wise-report-${startDate}-to-${endDate}.xlsx`);
+      res.setHeader(
+        "Content-Type",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      );
+      res.setHeader(
+        "Content-Disposition",
+        `attachment; filename=date-wise-report-${startDate}-to-${endDate}.xlsx`
+      );
       res.send(buffer);
     } catch (error) {
       console.log(error);
@@ -468,8 +524,6 @@ class UserController {
     }
   };
 
-
   // Month Month Wise Report and Date wise report end
-
 }
 module.exports = UserController;
